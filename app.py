@@ -130,13 +130,13 @@ def make_figure(k_sab_capex, co2_price, k_smr, markers, xlim, ylim, show_ideal):
         ax.spines[side].set_color(C_GRID)
     ax.tick_params(colors=C_MUTED, labelsize=9.5)
 
-    ax.text(0.03, 0.95, "SMR economic", transform=ax.transAxes,
+    ax.text(0.03, 0.95, "SMR is economic", transform=ax.transAxes,
             fontsize=12, color=C_SMR, va="top")
-    ax.text(0.03, 0.905, "reform gas into hydrogen", transform=ax.transAxes,
+    ax.text(0.03, 0.905, "It is profitable to convert methane to hydrogen", transform=ax.transAxes,
             fontsize=9.5, color=C_MUTED, va="top")
-    ax.text(0.97, 0.09, "Sabatier economic", transform=ax.transAxes,
+    ax.text(0.97, 0.09, "Sabatier is economic", transform=ax.transAxes,
             fontsize=12, color=C_SAB, ha="right", va="bottom")
-    ax.text(0.97, 0.045, "methanate hydrogen into CH\u2084", transform=ax.transAxes,
+    ax.text(0.97, 0.045, "It is profitable to convert hydrogen to methane", transform=ax.transAxes,
             fontsize=9.5, color=C_MUTED, ha="right", va="bottom")
 
     handles = [
