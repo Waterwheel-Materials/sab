@@ -165,11 +165,10 @@ def make_figure(k_sab_capex, co2_price, k_smr, markers, xlim, ylim, show_ideal):
 # ----------------------------------------------------------------------------
 st.set_page_config(page_title="Sabatier vs SMR", layout="wide")
 
-st.title("Where does making methane from hydrogen actually pay?")
+st.title("When does it make sense to convert methane to hydrogen or vice versa?")
 st.caption(
     f"Sabatier consumes {KG_H2_PER_MMBTU:.1f} kg of H\u2082 per MMBtu of CH\u2084. SMR "
-    f"consumes {MMBTU_PER_KG_H2_SMR:.3f} MMBtu of gas per kg of H\u2082. Those two "
-    "ratios, plus a cost adder on each side, draw the whole map."
+    f"consumes {MMBTU_PER_KG_H2_SMR:.3f} MMBtu of gas per kg of H\u2082."
 )
 
 with st.sidebar:
@@ -203,11 +202,8 @@ with st.sidebar:
     y_hi = st.slider("H\u2082 axis maximum  ($/kg)", 10, 100, 30, 5)
 
 markers = [
-    {"x": p_gas, "y": p_h2, "label": "Your market", "dx": 10, "dy": 8},
-    {"x": 3.50, "y": 1.00, "label": "DOE $1/kg target", "dx": 10, "dy": -16},
-    {"x": 11.0, "y": 7.00, "label": "EU typical (TTF)", "dx": -10, "dy": -18, "ha": "right"},
-    {"x": 19.0, "y": 7.00, "label": "UK spike, Jul 2026", "dx": 10, "dy": 8},
-    {"x": 19.0, "y": 1.30, "label": "Rivan target, \u00a31/kg", "dx": 10, "dy": -4},
+    {"x": 3.50, "y": 6.00, "label": "US typical", "dx": 10, "dy": 8},
+    {"x": 11.0, "y": 7.00, "label": "EU typical", "dx": 10, "dy": 8},
 ]
 
 fig, k_sab = make_figure(
