@@ -202,8 +202,10 @@ with st.sidebar:
     y_hi = st.slider("H\u2082 axis maximum  ($/kg)", 10, 100, 30, 5)
 
 markers = [
-    {"x": 3.50, "y": 6.00, "label": "US typical", "dx": 10, "dy": 8},
-    {"x": 11.0, "y": 7.00, "label": "EU typical", "dx": 10, "dy": 8},
+    {"x": 3.50, "y": 5.00, "label": "US green H₂ typical", "dx": 10, "dy": 8},
+    {"x": 3.50, "y": 1.50, "label": "US typical", "dx": 10, "dy": -16},
+    {"x": 11.0, "y": 7.00, "label": "EU green H₂ typical", "dx": -10, "dy": 8, "ha": "right"},
+    {"x": 11.0, "y": 3.50, "label": "EU typical", "dx": -10, "dy": -16, "ha": "right"},
 ]
 
 fig, k_sab = make_figure(
