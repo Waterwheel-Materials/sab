@@ -192,10 +192,6 @@ with st.sidebar:
         help="Non-gas costs for a large-scale reformer.",
     )
 
-    st.header("Your market")
-    p_gas = st.number_input("Natural gas  ($/MMBtu)", 0.5, 100.0, 3.50, 0.25)
-    p_h2 = st.number_input("Hydrogen  ($/kg)", 0.10, 50.0, 6.00, 0.25)
-
     st.header("View")
     show_ideal = st.checkbox("Show zero-capex limits", value=True)
     x_hi = st.slider("Gas axis maximum  ($/MMBtu)", 20, 200, 60, 10)
@@ -208,47 +204,12 @@ markers = [
     {"x": 11.0, "y": 3.50, "label": "EU typical", "dx": -10, "dy": -16, "ha": "right"},
 ]
 
-fig, k_sab = make_figure(
+fig, _ = make_figure(
     k_sab_capex, co2_price, k_smr, markers,
     xlim=(1.0, float(x_hi)), ylim=(0.2, float(y_hi)),
     show_ideal=show_ideal,
 )
 st.pyplot(fig, use_container_width=True)
-
-# ----------------------------------------------------------------------------
-# Readout
-# ----------------------------------------------------------------------------
-h2_ceiling = breakeven_h2_for_sabatier(p_gas, k_sab)
-gas_floor = KG_H2_PER_MMBTU * p_h2 + k_sab
-smr_cost = breakeven_h2_for_smr(p_gas, k_smr)
-
-c1, c2, c3 = st.columns(3)
-
-with c1:
-    if h2_ceiling > 0:
-        st.metric("Sabatier needs H\u2082 below", f"${h2_ceiling:,.2f}/kg")
-        st.caption(f"You are at ${p_h2:,.2f} — a factor of {p_h2 / h2_ceiling:,.1f} away.")
-    else:
-        st.metric("Sabatier needs H\u2082 below", "impossible")
-        st.caption("CO\u2082 and capex alone already cost more than the gas is worth.")
-
-with c2:
-    st.metric("or gas above", f"${gas_floor:,.2f}/MMBtu")
-    st.caption(f"You are at ${p_gas:,.2f} — a factor of {gas_floor / p_gas:,.1f} away.")
-
-with c3:
-    st.metric("SMR hydrogen costs", f"${smr_cost:,.2f}/kg")
-    st.caption("Gas plus reformer capex and opex.")
-
-if p_h2 <= h2_ceiling:
-    st.success("Methanation clears at these prices.")
-elif p_h2 >= smr_cost:
-    st.info("You are in the SMR region — reforming is the economic direction here.")
-else:
-    st.warning(
-        "You are inside the wedge: hydrogen is too expensive to methanate and too "
-        "cheap to be worth reforming for. Neither conversion pays."
-    )
 
 with st.expander("What the lines mean"):
     st.markdown(
